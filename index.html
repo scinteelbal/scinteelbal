@@ -18,6 +18,7 @@
   .nog { color:#d32f2f; }
   .rij { color:#3c00a3; }
   .klaar { color:#388e3c; }
+  .weg { color:#555; }
 
   .bitterballen { margin-top:1rem; }
   .bitterballen span { font-size:2rem; margin:0 2px; }
@@ -37,6 +38,13 @@
     transition: background 0.3s;
   }
   .donate-button:hover { background:#e68900; }
+
+  /* Disabled stijl */
+  .donate-button.disabled {
+    background:#ccc;
+    cursor:not-allowed;
+    pointer-events:none;
+  }
 </style>
 </head>
 <body>
@@ -56,7 +64,7 @@
 <div class="bitterballen" id="bitterballen"></div>
 
 <!-- Doneerknop -->
-<a class="donate-button" href="https://www.ing.nl/payreq/m/?trxid=i0Wh7pxS6gy4ITm245dgbVA4NgrUx1md" target="_blank">Doneerknop.png</a>
+<a id="donateBtn" class="donate-button" href="https://www.ing.nl/payreq/m/?trxid=i0Wh7pxS6gy4ITm245dgbVA4NgrUx1md" target="_blank">Doneerknop.png</a>
 
 <script>
 const circle = document.querySelector(".circle-fill");
@@ -74,9 +82,26 @@ function updateStatus(data){
   document.getElementById("amountText").innerText = `${donatieBedrag} / 25€`;
 
   const statEl = document.getElementById("status");
-  if(status==="nog"){ statEl.innerText="Nog niet genoeg binnen"; statEl.className="status nog"; }
-  else if(status==="rij"){ statEl.innerText="Ik sta in de rij"; statEl.className="status rij"; }
-  else{ statEl.innerText="Ze zijn er! 🧆"; statEl.className="status klaar"; }
+  const donateBtn = document.getElementById("donateBtn");
+  donateBtn.classList.remove("disabled");
+
+  if(status==="nog"){ 
+    statEl.innerText="Nog niet genoeg binnen"; 
+    statEl.className="status nog"; 
+  }
+  else if(status==="rij"){ 
+    statEl.innerText="Ik sta in de rij"; 
+    statEl.className="status rij"; 
+  }
+  else if(status==="klaar"){ 
+    statEl.innerText="Ze zijn er! 🧆"; 
+    statEl.className="status klaar"; 
+  }
+  else if(status==="weg"){ 
+    statEl.innerText="Ik ben niet in de VB momenteel 🚶"; 
+    statEl.className="status weg"; 
+    donateBtn.classList.add("disabled"); 
+  }
 
   const rounds = Math.floor(donatieBedrag/25);
   document.getElementById("bitterballen").innerHTML = "🧆".repeat(rounds);
