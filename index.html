@@ -2,9 +2,10 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>scinteelbal.nl</title>
 <style>
-  body { font-family:sans-serif; text-align:center; padding:2rem; background:#fafafa; }
+  body { font-family:sans-serif; text-align:center; padding:2rem; background:#fafafa; margin:0; }
   h1 { font-size:2rem; margin-bottom:0.5rem; }
   p { margin-top:0.2rem; }
 
@@ -18,7 +19,7 @@
   .nog { color:#d32f2f; }
   .rij { color:#3c00a3; }
   .klaar { color:#388e3c; }
-  .weg { color:#555; }
+  .weg { color:#757575; }
 
   .bitterballen { margin-top:1rem; }
   .bitterballen span { font-size:2rem; margin:0 2px; }
@@ -38,13 +39,7 @@
     transition: background 0.3s;
   }
   .donate-button:hover { background:#e68900; }
-
-  /* Disabled stijl */
-  .donate-button.disabled {
-    background:#ccc;
-    cursor:not-allowed;
-    pointer-events:none;
-  }
+  .disabled { pointer-events:none; background:#bdbdbd; }
 </style>
 </head>
 <body>
@@ -83,22 +78,24 @@ function updateStatus(data){
 
   const statEl = document.getElementById("status");
   const donateBtn = document.getElementById("donateBtn");
-  donateBtn.classList.remove("disabled");
 
   if(status==="nog"){ 
     statEl.innerText="Nog niet genoeg binnen"; 
     statEl.className="status nog"; 
+    donateBtn.classList.remove("disabled");
   }
   else if(status==="rij"){ 
     statEl.innerText="Ik sta in de rij"; 
     statEl.className="status rij"; 
+    donateBtn.classList.remove("disabled");
   }
   else if(status==="klaar"){ 
     statEl.innerText="Ze zijn er! 🧆"; 
     statEl.className="status klaar"; 
+    donateBtn.classList.remove("disabled");
   }
   else if(status==="weg"){ 
-    statEl.innerText="Ik ben niet in de VB momenteel 🚶"; 
+    statEl.innerText="Ik ben niet in de VB momenteel"; 
     statEl.className="status weg"; 
     donateBtn.classList.add("disabled"); 
   }
