@@ -1,125 +1,34 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>scinteelbal.nl</title>
-<style>
-  body { font-family:sans-serif; text-align:center; padding:2rem; background:#fafafa; margin:0; }
-  h1 { font-size:2rem; margin-bottom:0.5rem; }
-  p { margin-top:0.2rem; }
-
-  .progress-circle { position: relative; width: 150px; height: 150px; margin: 2rem auto; }
-  .progress-circle svg { transform: rotate(-90deg); }
-  .circle-bg { fill: none; stroke: #eee; stroke-width: 15; }
-  .circle-fill { fill: none; stroke: #ff9800; stroke-width: 15; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
-  .center-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size:1.2rem; font-weight:bold; }
-
-  .status { font-weight:bold; font-size:1.3rem; margin-top:1rem; }
-  .nog { color:#d32f2f; }
-  .rij { color:#3c00a3; }
-  .klaar { color:#388e3c; }
-  .weg { color:#757575; }
-
-  .bitterballen { margin-top:1rem; }
-  .bitterballen span { font-size:2rem; margin:0 2px; }
-
-  .donate-button {
-    display:inline-block;
-    margin-top:2rem;
-    padding:0.8rem 1.5rem;
-    font-size:1.2rem;
-    font-weight:bold;
-    color:white;
-    background:#ff9800;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    text-decoration:none;
-    transition: background 0.3s;
-  }
-  .donate-button:hover { background:#e68900; }
-  .disabled { pointer-events:none; background:#bdbdbd; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scinteelbal</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      font-size: clamp(1rem, 2vw, 2rem);
+      padding: 1rem;
+    }
+    img {
+      max-width: 80%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
-
-<h1>Scintilla's Bitterballen-fonds </h1>
-<p>klik op de doneerknop om bij te dragen aan het bitterballen-fonds</p>
-
-<div class="progress-circle">
-  <svg width="150" height="150">
-    <circle class="circle-bg" cx="75" cy="75" r="60"></circle>
-    <circle class="circle-fill" cx="75" cy="75" r="60" stroke-dasharray="377" stroke-dashoffset="377"></circle>
-  </svg>
-  <div class="center-text" id="amountText">0 / 25€</div>
-</div>
-
-<div class="status" id="status"></div>
-<div class="bitterballen" id="bitterballen"></div>
-
-<!-- Doneerknop -->
-<a id="donateBtn" class="donate-button" href="https://www.ing.nl/payreq/m/?trxid=i0Wh7pxS6gy4ITm245dgbVA4NgrUx1md" target="_blank">Doneerknop.png</a>
-
-<script>
-const circle = document.querySelector(".circle-fill");
-const circumference = 2 * Math.PI * 60;
-circle.style.strokeDasharray = circumference;
-
-function updateStatus(data){
-  const donatieBedrag = parseFloat(data.bedrag);
-  const status = data.status.trim().toLowerCase();
-
-  const pct = Math.min(100, (donatieBedrag/25)*100);
-  const offset = circumference * (1 - pct/100);
-  circle.style.strokeDashoffset = offset;
-
-  document.getElementById("amountText").innerText = `${donatieBedrag} / 25€`;
-
-  const statEl = document.getElementById("status");
-  const donateBtn = document.getElementById("donateBtn");
-
-  if(status==="nog"){ 
-    statEl.innerText="Nog niet genoeg binnen"; 
-    statEl.className="status nog"; 
-    donateBtn.classList.remove("disabled");
-  }
-  else if(status==="rij"){ 
-    statEl.innerText="Ik sta in de rij"; 
-    statEl.className="status rij"; 
-    donateBtn.classList.remove("disabled");
-  }
-  else if(status==="klaar"){ 
-    statEl.innerText="Ze zijn er! 🧆"; 
-    statEl.className="status klaar"; 
-    donateBtn.classList.remove("disabled");
-  }
-  else if(status==="weg"){ 
-    statEl.innerText="Ik ben niet in de VB momenteel"; 
-    statEl.className="status weg"; 
-    donateBtn.classList.add("disabled"); 
-  }
-
-  const rounds = Math.floor(donatieBedrag/25);
-  document.getElementById("bitterballen").innerHTML = "🧆".repeat(rounds);
-}
-
-// JSONP callback functie
-function borrelplank(data) {
-  updateStatus(data);
-}
-
-// JSONP laden
-function loadJSONP(){
-  const script = document.createElement("script");
-  script.src = "https://script.google.com/macros/s/AKfycbwbAN9UYqGqn641G1DWVdU3MECEolbX7nk2kKaNZwaNakiTt436qPADehUvnHPvQMtO/exec?callback=borrelplank";
-  document.body.appendChild(script);
-}
-
-// Eerste update
-loadJSONP();
-// Herhaal elke 1 seconden
-setInterval(loadJSONP, 1000);
-</script>
+  <h1>Ik heb alle hoop in de mensheid verloren!</h1>
+  <p>Ik dank iedereen voor het bijdragen aan de bitterballen</p>
+    <img src="krijg.png" alt="krijg picture">
+    <p>Krijg van harte de tering</p>
 </body>
 </html>
